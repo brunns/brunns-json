@@ -4,10 +4,10 @@ import json
 from brunns.util.method_dispatch import methoddispatch
 
 
-class ExtendedEncoder(json.JSONEncoder):
+class ExtendedJSONEncoder(json.JSONEncoder):
     @methoddispatch
     def default(self, o):
-        return super(ExtendedEncoder, self).default(o)
+        return super(ExtendedJSONEncoder, self).default(o)
 
     @default.register(datetime.date)
     def default_date(self, date):
