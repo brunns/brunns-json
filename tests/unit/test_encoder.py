@@ -7,37 +7,17 @@ from hamcrest import assert_that, has_entries, calling, raises
 from brunns.json.encoder import ExtendedJSONEncoder
 
 
-def test_encode_string():
+def test_encode_date_and_builtins():
     # Given
     somestring = "sausages"
-
-    # When
-    actual = json.dumps({"somestring": somestring}, cls=ExtendedJSONEncoder)
-
-    # Then
-    assert_that(actual, json_matching(has_entries(somestring=somestring)))
-
-
-def test_encode_int():
-    # Given
     someint = 99
-
-    # When
-    actual = json.dumps({"someint": someint}, cls=ExtendedJSONEncoder)
-
-    # Then
-    assert_that(actual, json_matching(has_entries(someint=99)))
-
-
-def test_encode_date():
-    # Given
     somedate = datetime.date(1968, 7, 21)
 
     # When
-    actual = json.dumps({"somedate": somedate}, cls=ExtendedJSONEncoder)
+    actual = json.dumps({"somedate": somedate, "somestring": somestring, "someint": someint}, cls=ExtendedJSONEncoder)
 
     # Then
-    assert_that(actual, json_matching(has_entries(somedate="1968-07-21")))
+    assert_that(actual, json_matching(has_entries(somestring=somestring, someint=someint, somedate="1968-07-21")))
 
 
 def test_encode_datetime():
