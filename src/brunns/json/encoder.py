@@ -1,5 +1,6 @@
 import datetime
 import json
+from enum import Enum
 
 from brunns.util.method_dispatch import methoddispatch
 
@@ -16,3 +17,7 @@ class ExtendedJSONEncoder(json.JSONEncoder):
     @default.register(datetime.datetime)
     def default_datetime(self, datetime):
         return datetime.isoformat()
+
+    @default.register(Enum)
+    def default_enum(self, enum):
+        return str(enum)

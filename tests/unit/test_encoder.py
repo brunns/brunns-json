@@ -1,5 +1,6 @@
 import datetime
 import json
+from enum import Enum
 
 from brunns.matchers.data import json_matching
 from hamcrest import assert_that, has_entries, calling, raises
@@ -40,3 +41,19 @@ def test_unserialisable_type():
         calling(json.dumps).with_args({"someobject": someobject}, cls=ExtendedJSONEncoder),
         raises(TypeError, ".* is not JSON serializable"),
     )
+
+
+def test_enum():
+    # Given
+    class Colour(Enum):
+        RED = 1
+        GREEN = 2
+        BLUE = 3
+
+    someenumvalue = Colour.GREEN
+
+    # When
+    actual = json.dumps({"someenumvalue": someenumvalue}, cls=ExtendedJSONEncoder)
+
+    # Then
+    assert_that(actual, json_matching(has_entries(someenumvalue="Colour.GREEN")))
