@@ -20,5 +20,8 @@ class ExtendedJSONDecoder(json.JSONDecoder):
         s, end = json.decoder.scanstring(s, end)
         for pattern, transformer in ExtendedJSONDecoder.TYPES:
             if re.match(pattern, s):
-                return transformer(s), end
+                try:
+                    return transformer(s), end
+                except Exception:  # nosec
+                    pass  # Try something else
         return s, end

@@ -1,10 +1,10 @@
 SHELL = /bin/bash
 
 default: help
-.PHONY: help test coverage flake8 bandit safety check-format format piprot precommit clean repl outdated
+.PHONY: help
 
 test: ## Run tests
-	tox
+	tox -e py27,py34,py37
 
 coverage: ## Test coverage report
 	tox -e coverage
@@ -32,6 +32,9 @@ piprot: ## Check for outdated dependencies
 precommit: test lint coverage ## Pre-commit targets
 	@ python -m this
 
+recreate: ## Recreate tox environments
+	tox --recreate --notest -e py27,py34,py37,format,flake8,bandit,safety,piprot
+
 clean: ## Clean generated files
 	find . -name '*.pyc' -delete
 	find . -name '*.pyo' -delete
@@ -40,10 +43,10 @@ clean: ## Clean generated files
 	find . -name "test-output" -type d -print | xargs -t rm -r
 
 repl: ## Python REPL
-	tox -e py36 -- python
+	tox -e py37 -- python
 
 outdated: ## List outdated dependancies
-	tox -e py36 -- pip list --outdated
+	tox -e py37 -- pip list --outdated
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1,$$2}'

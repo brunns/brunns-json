@@ -32,6 +32,17 @@ def test_encode_datetime():
     assert_that(actual, json_matching(has_entries(somedatetime="1968-07-21T04:04:00")))
 
 
+def test_encode_binary():
+    # Given
+    somebin = b"dfgddzfbv"
+
+    # When
+    actual = json.dumps({"somebin": somebin}, cls=ExtendedJSONEncoder)
+
+    # Then
+    assert_that(actual, json_matching(has_entries(somebin="dfgddzfbv")))
+
+
 def test_unserialisable_type():
     # Given
     someobject = ExtendedJSONEncoder()
