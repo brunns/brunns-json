@@ -2,8 +2,6 @@ import datetime
 import json
 from enum import Enum
 
-import six
-
 from brunns.util.method_dispatch import methoddispatch
 
 
@@ -24,6 +22,6 @@ class ExtendedJSONEncoder(json.JSONEncoder):
     def default_enum(self, enum):
         return str(enum)
 
-    @default.register(six.binary_type)
+    @default.register(bytes)
     def default_binary(self, binary):
         return binary.decode("utf-8")
