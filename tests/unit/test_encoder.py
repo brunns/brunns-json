@@ -15,10 +15,16 @@ def test_encode_date_and_builtins():
     somedate = datetime.date(1968, 7, 21)
 
     # When
-    actual = json.dumps({"somedate": somedate, "somestring": somestring, "someint": someint}, cls=ExtendedJSONEncoder)
+    actual = json.dumps(
+        {"somedate": somedate, "somestring": somestring, "someint": someint},
+        cls=ExtendedJSONEncoder,
+    )
 
     # Then
-    assert_that(actual, json_matching(has_entries(somestring=somestring, someint=someint, somedate="1968-07-21")))
+    assert_that(
+        actual,
+        json_matching(has_entries(somestring=somestring, someint=someint, somedate="1968-07-21")),
+    )
 
 
 def test_encode_datetime():
