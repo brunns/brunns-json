@@ -5,9 +5,24 @@ matrix:
     - os: windows
     - os: osx
   include:
+    - python: 3.8
+      env:
+        - TOX_ENV=py38
     - python: 3.7
       env:
         - TOX_ENV=py37
+    - python: 3.6
+      env:
+        - TOX_ENV=py36
+    - python: 3.5
+      env:
+        - TOX_ENV=py35
+    - python: 3.9-dev
+      env:
+        - TOX_ENV=py39
+    - python: 3.6
+      env:
+        - TOX_ENV=pypy3.6
     - os: osx
       language: generic
       python: 3.7
@@ -15,41 +30,29 @@ matrix:
         - TOX_ENV=py37
     - os: windows
       language: sh
-      python: 3.7
+      python: 3.8
       before_install:
-        - choco install python --version=3.7.5
-        - export PATH="/c/Python37:/c/Python37/Scripts:$PATH"
+        - choco install python --version=3.8.3
+        - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
         - python -m pip install --upgrade pip wheel tox
       env:
-        - TOX_ENV=py37
-    - python: 3.5
-      env:
-        - TOX_ENV=py35
-    - python: 3.6
-      env:
-        - TOX_ENV=py36
+        - TOX_ENV=py38
     - python: 3.8
       env:
-        - TOX_ENV=py38
-    - python: 3.6
-      env:
-        - TOX_ENV=pypy3.6
-    - python: 3.6
-      env:
         - TOX_ENV=check-format
-    - python: 3.6
+    - python: 3.8
       env:
         - TOX_ENV=flake8
-    - python: 3.6
+    - python: 3.8
       env:
         - TOX_ENV=bandit
-    - python: 3.6
+    - python: 3.8
       env:
         - TOX_ENV=safety
-    - python: 3.6
+    - python: 3.8
       env:
         - TOX_ENV=coverage
 install:
- - pip install --upgrade tox
+  - pip install --upgrade tox
 script:
- - tox -e $TOX_ENV
+  - tox -e $TOX_ENV
