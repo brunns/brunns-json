@@ -2,10 +2,10 @@ import datetime
 import json
 from enum import Enum
 
-from brunns.matchers.data import json_matching
-from hamcrest import assert_that, has_entries, calling, raises
+from hamcrest import assert_that, calling, has_entries, raises
 
 from brunns.json.encoder import ExtendedJSONEncoder
+from brunns.matchers.data import json_matching
 
 
 def test_encode_date_and_builtins():
