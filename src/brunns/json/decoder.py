@@ -1,13 +1,13 @@
 import json
 import re
 
-import pendulum
+from dateutil import parser
 
 
 class ExtendedJSONDecoder(json.JSONDecoder):
     TYPES = [
-        (r"^\d{4}-\d{2}-\d{2}$", lambda st: pendulum.parse(st, exact=True)),
-        (r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$", lambda st: pendulum.parse(st, exact=True)),
+        (r"^\d{4}-\d{2}-\d{2}$", lambda st: parser.parse(st).date()),
+        (r"^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$", parser.parse),
     ]
 
     def __init__(self, *args, **kwargs):
