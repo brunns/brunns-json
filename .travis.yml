@@ -4,25 +4,11 @@ matrix:
   allow_failures:
     - os: windows
     - os: osx
+    - python: 3.9-dev
   include:
-    - python: 3.8
-      env:
-        - TOX_ENV=py38
     - python: 3.7
       env:
         - TOX_ENV=py37
-    - python: 3.6
-      env:
-        - TOX_ENV=py36
-    - python: 3.5
-      env:
-        - TOX_ENV=py35
-    - python: 3.9-dev
-      env:
-        - TOX_ENV=py39
-    - python: 3.6
-      env:
-        - TOX_ENV=pypy3.6
     - os: osx
       language: generic
       python: 3.7
@@ -36,7 +22,19 @@ matrix:
         - export PATH="/c/Python38:/c/Python38/Scripts:$PATH"
         - python -m pip install --upgrade pip wheel tox
       env:
+        - TOX_ENV=py37
+    - python: 3.6
+      env:
+        - TOX_ENV=py36
+    - python: 3.8
+      env:
         - TOX_ENV=py38
+    - python: 3.9-dev
+      env:
+        - TOX_ENV=py39
+    - python: 3.6
+      env:
+        - TOX_ENV=pypy3.6
     - python: 3.8
       env:
         - TOX_ENV=check-format
@@ -52,7 +50,10 @@ matrix:
     - python: 3.8
       env:
         - TOX_ENV=coverage
-install:
+before_install:
   - pip install --upgrade tox
+install:
+  - python --version
+  - pip --version
 script:
   - tox -e $TOX_ENV
