@@ -37,6 +37,5 @@ def test_decode_datetime():
 
     # Then
     assert_that(
-        actual,
-        has_entries(somedate=datetime(1968, 7, 21, 4, 4, 0), foo=99, bar="sausages"),
+        actual, has_entries(somedate=datetime(1968, 7, 21, 4, 4, 0), foo=99, bar="sausages"),
     )
