@@ -48,5 +48,5 @@ setup(
         "Topic :: Software Development :: Testing",
     ],
     python_requires=">=3.6",
-    install_requires=["python-dateutil~=2.8"],
+    install_requires=["python-dateutil~=3.0"],
 )
